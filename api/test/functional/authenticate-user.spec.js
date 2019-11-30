@@ -42,13 +42,14 @@ test('authenticate user using username/password', async ({
 })
 
 test('authentication error wrong password', async ({ assert, client }) => {
+  const user = await User.first()
+
   const response = await client
     .post('/api/sessions')
-    .send({ username: 'doesnotexist', password: '333444' })
+    .send({ username: user.username, password: '333444' })
     .end()
 
-  response.assertStatus(401)
-
+  assert.equal(response.status, 401)
   assert.isUndefined(response.body.token)
 })
 
@@ -58,7 +59,7 @@ test('authentication error missing username', async ({ assert, client }) => {
     .send({ password: '333444' })
     .end()
 
-  response.assertStatus(500)
+  response.assertStatus(400)
 
   assert.isUndefined(response.body.token)
 })
@@ -69,7 +70,7 @@ test('authentication fails missing password', async ({ assert, client }) => {
     .send({ username: 'dummy' })
     .end()
 
-  response.assertStatus(401)
+  response.assertStatus(400)
 
   assert.isUndefined(response.body.token)
 })

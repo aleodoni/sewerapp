@@ -1,5 +1,6 @@
 'use strict'
 
+const AuthenticateException = use('App/Exceptions/AuthenticateException')
 const User = use('App/Models/User')
 
 class SessionController {
@@ -11,9 +12,12 @@ class SessionController {
       .select('username', 'email')
       .first()
 
-    const token = await auth.attempt(username, password)
-
-    return response.ok({ user, token })
+    try {
+      const token = await auth.attempt(username, password)
+      return response.ok({ user, token })
+    } catch (err) {
+      throw new AuthenticateException()
+    }
   }
 }
 
