@@ -1,9 +1,10 @@
 import React from 'react';
-import { Text } from 'react-native';
+
 import '~/config/StatusBarConfig';
+import Routes from '~/routes';
 
 function App() {
-  return <Text>Teste</Text>;
+  return <Routes />;
 }
 
 export default App;

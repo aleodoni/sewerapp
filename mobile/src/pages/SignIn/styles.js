@@ -1,24 +1,16 @@
-import { StyleSheet } from 'react-native';
-import { colors, general } from '~/styles';
+import styled from 'styled-components/native';
 
-const styles = StyleSheet.create({
-  ...general.formStyles,
-  ...general.buttonStyles,
+export const Container = styled.KeyboardAvoidingView`
+  flex: 1;
+  background-color: ${props => props.theme.background};
+  justify-content: center;
+  align-items: stretch;
+  /* padding: 30; */
+`;
 
-  container: {
-    flex: 1,
-    backgroundColor: colors.background,
-    justifyContent: 'center',
-    alignItems: 'stretch',
-    padding: 30,
-  },
-
-  title: {
-    fontSize: 28,
-    marginBottom: 20,
-    color: colors.white,
-    textAlign: 'center',
-  },
-});
-
-export default styles;
+export const Title = styled.Text`
+  font-size: 28;
+  margin-bottom: 20;
+  color: ${props => props.theme.white};
+  text-align: center;
+`;
