@@ -6,6 +6,10 @@ const BaseExceptionHandler = use('BaseExceptionHandler')
 
 class ExceptionHandler extends BaseExceptionHandler {
   async handle (error, { request, response }) {
+    if (error.name === 'InvalidJwtToken') {
+      return response.status(error.status).send({ error: 'Invalid Token' })
+    }
+
     if (error.name === 'ValidationException') {
       return response.status(error.status).send(error.messages)
     }

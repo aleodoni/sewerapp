@@ -9,7 +9,7 @@ class SessionController {
 
     const user = await User.query()
       .where('username', username)
-      .select('username', 'email')
+      .select('id', 'username', 'email')
       .first()
 
     try {

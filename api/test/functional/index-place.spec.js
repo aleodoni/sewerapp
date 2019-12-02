@@ -5,6 +5,7 @@ const Database = use('Database')
 const Factory = use('Factory')
 
 trait('Test/ApiClient')
+trait('Auth/Client')
 
 beforeEach(async () => {
   await Database.truncate('places')
@@ -12,8 +13,11 @@ beforeEach(async () => {
 })
 
 test('get places', async ({ assert, client }) => {
+  const user = await Factory.model('App/Models/User').create()
+
   const response = await client
     .get('/api/places')
+    .loginVia(user)
     .end()
 
   assert.equal(response.status, 200)
