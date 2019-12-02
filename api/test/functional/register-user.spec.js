@@ -25,7 +25,7 @@ test('registers a new user and generates a jwt', async ({ assert, client }) => {
   response.assertJSONSubset({
     user: {
       email,
-      username
+      name: username
     }
   })
 
@@ -34,4 +34,62 @@ test('registers a new user and generates a jwt', async ({ assert, client }) => {
   await User.query()
     .where({ email })
     .firstOrFail()
+})
+
+test('registers a new user with existing username', async ({ assert, client }) => {
+  await User.create({
+    username: 'teste',
+    email: 'teste@gmail.com',
+    password: '123456'
+  })
+
+  const response = await client
+    .post('/api/register')
+    .send({
+      username: 'teste',
+      email: 'teste@gmail.com',
+      password: '123456'
+    })
+    .end()
+
+  response.assertStatus(400)
+})
+
+test('try to register user without username', async ({ assert, client }) => {
+  const response = await client
+    .post('/api/register')
+    .send({
+      username: null,
+      email: 'aleodoni@gmail.com',
+      password: '123456'
+    })
+    .end()
+
+  response.assertStatus(400)
+})
+
+test('try to register user without email', async ({ assert, client }) => {
+  const response = await client
+    .post('/api/register')
+    .send({
+      username: 'aleodoni',
+      email: null,
+      password: '123456'
+    })
+    .end()
+
+  response.assertStatus(400)
+})
+
+test('try to register user without password', async ({ assert, client }) => {
+  const response = await client
+    .post('/api/register')
+    .send({
+      username: 'aleodoni',
+      email: 'aleodoni@gmail.com',
+      password: null
+    })
+    .end()
+
+  response.assertStatus(400)
 })

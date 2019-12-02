@@ -3,7 +3,7 @@
 const Route = use('Route')
 
 Route.group(() => {
-  Route.post('register', 'RegisterController.store')
+  Route.post('register', 'RegisterController.store').validator('Register')
 
   Route.post('sessions', 'SessionController.store').validator('SessionStore')
 
