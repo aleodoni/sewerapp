@@ -5,6 +5,7 @@ const Database = use('Database')
 const Factory = use('Factory')
 
 trait('Test/ApiClient')
+trait('Auth/Client')
 
 beforeEach(async () => {
   await Database.truncate('places')
@@ -12,8 +13,11 @@ beforeEach(async () => {
 })
 
 test('get place', async ({ assert, client }) => {
+  const user = await Factory.model('App/Models/User').create()
+
   const response = await client
     .get('/api/places/1')
+    .loginVia(user)
     .end()
 
   assert.equal(response.status, 200)
@@ -22,8 +26,11 @@ test('get place', async ({ assert, client }) => {
 })
 
 test('try to get place id invalid', async ({ assert, client }) => {
+  const user = await Factory.model('App/Models/User').create()
+
   const response = await client
     .delete('/api/places/100')
+    .loginVia(user)
     .end()
 
   assert.equal(response.status, 404)

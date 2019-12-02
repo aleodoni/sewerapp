@@ -10,8 +10,8 @@ Route.group(() => {
   Route.post('users', 'UserController.store')
 
   Route.get('places', 'PlaceController.index').middleware('auth')
-  Route.get('places/:id', 'PlaceController.show')
-  Route.post('places', 'PlaceController.store').validator('Place')
-  Route.put('places/:id', 'PlaceController.update').validator('Place')
-  Route.delete('places/:id', 'PlaceController.delete')
+  Route.get('places/:id', 'PlaceController.show').middleware('auth')
+  Route.post('places', 'PlaceController.store').middleware('auth').validator('Place')
+  Route.put('places/:id', 'PlaceController.update').middleware('auth').validator('Place')
+  Route.delete('places/:id', 'PlaceController.delete').middleware('auth')
 }).prefix('api')

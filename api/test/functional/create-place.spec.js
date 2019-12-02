@@ -2,16 +2,21 @@
 
 const { test, trait, beforeEach } = use('Test/Suite')('Controller/Places')
 const Database = use('Database')
+const Factory = use('Factory')
 
 trait('Test/ApiClient')
+trait('Auth/Client')
 
 beforeEach(async () => {
   await Database.truncate('places')
 })
 
 test('place created successfully', async ({ assert, client }) => {
+  const user = await Factory.model('App/Models/User').create()
+
   const response = await client
     .post('/api/places')
+    .loginVia(user)
     .send({ name: 'Piçarras' })
     .end()
 
@@ -21,8 +26,11 @@ test('place created successfully', async ({ assert, client }) => {
 })
 
 test('validade and return error name null', async ({ assert, client }) => {
+  const user = await Factory.model('App/Models/User').create()
+
   const response = await client
     .post('/api/places')
+    .loginVia(user)
     .send({ name: null })
     .end()
 
