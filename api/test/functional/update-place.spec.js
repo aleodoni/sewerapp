@@ -31,3 +31,11 @@ test('validade and return error name null', async ({ assert, client }) => {
   assert.equal(response.status, 400)
   assert.equal(response.body[0].message, 'required validation failed on name')
 })
+
+test('try to update place id invalid', async ({ assert, client }) => {
+  const response = await client
+    .delete('/api/places/100')
+    .end()
+
+  assert.equal(response.status, 404)
+})

@@ -3,12 +3,16 @@
 const Place = use('App/Models/Place')
 
 class PlaceController {
-  async index ({ auth, request, response }) {
+  async index ({ auth, response }) {
     const places = await Place.query().orderBy('name').fetch()
 
-    console.log(places.toJSON())
+    return response.ok(places)
+  }
 
-    return places
+  async show ({ params, auth, response }) {
+    const place = await Place.findOrFail(params.id)
+
+    return response.ok(place)
   }
 
   async store ({ auth, request, response }) {
@@ -26,6 +30,14 @@ class PlaceController {
 
     place.merge(data)
     await place.save()
+
+    return response.ok(place)
+  }
+
+  async delete ({ params, auth, response }) {
+    const place = await Place.findOrFail(params.id)
+
+    await place.delete()
 
     return response.ok(place)
   }
