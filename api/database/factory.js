@@ -27,3 +27,15 @@ Factory.blueprint('App/Models/Place', (faker, index, data) => {
     name: data[index]
   }
 })
+
+Factory.blueprint('App/Models/Geo', (faker, index, data) => {
+  return {
+    accuracy: 1,
+    altitude: 1,
+    altitudeAccuracy: 1,
+    heading: 1,
+    latitude: -26.753410,
+    longitude: -46.677137,
+    speed: 1
+  }
+})

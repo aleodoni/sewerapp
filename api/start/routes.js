@@ -14,4 +14,7 @@ Route.group(() => {
   Route.post('places', 'PlaceController.store').middleware('auth').validator('Place')
   Route.put('places/:id', 'PlaceController.update').middleware('auth').validator('Place')
   Route.delete('places/:id', 'PlaceController.delete').middleware('auth')
+
+  Route.get('geos', 'GeoController.index').middleware('auth')
+  Route.get('geos/:id', 'GeoController.show').middleware('auth')
 }).prefix('api')

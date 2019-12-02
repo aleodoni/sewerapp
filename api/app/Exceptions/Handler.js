@@ -10,6 +10,10 @@ class ExceptionHandler extends BaseExceptionHandler {
       return response.status(error.status).send({ error: 'Invalid Token' })
     }
 
+    if (error.name === 'NotFoundException') {
+      return response.status(error.status).send({ error: 'Not Found' })
+    }
+
     if (error.name === 'ValidationException') {
       return response.status(error.status).send(error.messages)
     }

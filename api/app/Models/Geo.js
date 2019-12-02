@@ -8,7 +8,7 @@ class Geo extends Model {
   }
 
   place () {
-    return this.beLongsTo('App/Models/Place')
+    return this.belongsTo('App/Models/Place')
   }
 }
 
