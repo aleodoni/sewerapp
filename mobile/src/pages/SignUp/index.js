@@ -1,8 +1,10 @@
-import React, {useRef, useState} from 'react';
+import React, { useRef, useState } from 'react';
+import { Image } from 'react-native';
 import PropTypes from 'prop-types';
 // import {useDispatch, useSelector} from 'react-redux';
 
 import Background from '~/components/Background';
+import logo from '~/assets/logo.png';
 /* import {signUpRequest} from '~/store/modules/auth/actions'; */
 
 import {
@@ -14,7 +16,7 @@ import {
   SignLinkText,
 } from './styles';
 
-export default function SignUp({navigation}) {
+export default function SignUp({ navigation }) {
   // const dispatch = useDispatch();
 
   const emailRef = useRef();
@@ -33,6 +35,7 @@ export default function SignUp({navigation}) {
   return (
     <Background>
       <Container>
+        <Image source={logo} style={{ width: 150, height: 150 }} />
         <Form>
           <FormInput
             icon="person-outline"
@@ -77,7 +80,8 @@ export default function SignUp({navigation}) {
         <SignLink
           onPress={() => {
             navigation.navigate('SignIn');
-          }}>
+          }}
+        >
           <SignLinkText>Já tenho login</SignLinkText>
         </SignLink>
       </Container>
@@ -86,5 +90,7 @@ export default function SignUp({navigation}) {
 }
 
 SignUp.propTypes = {
-  navigation: PropTypes.func.isRequired,
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
 };

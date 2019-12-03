@@ -6,6 +6,7 @@ buildscript {
         minSdkVersion = 16
         compileSdkVersion = 28
         targetSdkVersion = 28
+        supportLibVersion = "28.0.3"
     }
     repositories {
         google()
@@ -34,5 +35,20 @@ allprojects {
         google()
         jcenter()
         maven { url 'https://jitpack.io' }
+        maven { url "https://maven.google.com" } // Linha adicionada
+        maven {
+          url "$rootDir/../node_modules/react-native/android"
+        }
     }
+}
+
+subprojects {
+  project.configurations.all {
+    resolutionStrategy.eachDependency { details ->
+      if (details.requested.group == 'com.android.support'
+          && !details.requested.name.contains('multidex') ) {
+        details.useVersion "27.0.1"
+      }
+    }
+  }
 }

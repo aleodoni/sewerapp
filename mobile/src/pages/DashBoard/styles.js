@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import {RectButton} from 'react-native-gesture-handler';
+import { RectButton } from 'react-native-gesture-handler';
 
 export const Container = styled.SafeAreaView`
   flex: 1;
@@ -18,7 +18,7 @@ export const Title = styled.Text`
 
 export const List = styled.FlatList.attrs({
   showsVerticalScrollIndicator: false,
-  contentContainerStyle: {padding: 20},
+  contentContainerStyle: { padding: 20 },
 })``;
 
 export const DateSelect = styled.View`
