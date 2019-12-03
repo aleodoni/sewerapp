@@ -1,8 +1,10 @@
 # Backend
-Criar controller para fazer upload de imagem capturada no celular
+
+## Criar controller para fazer upload de imagem capturada no celular
+
+## Alterar tabela geo para salvar o id do usuário que lançou o ponto
 
 # Mobile
 
-## Adicionar e configurar o pacote react-native-camera
-https://blog.rocketseat.com.br/react-native-camera/
-https://github.com/Rocketseat/blog-react-native-camera
+# Tela inicial deve conter as listagens de pontos que o usuário lançou com o status das mesmas
+# Deve existir link para lançar um novo ponto (abrir câmera e gps)
