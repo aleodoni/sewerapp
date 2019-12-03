@@ -43,8 +43,9 @@ test('try to update place id invalid', async ({ assert, client }) => {
   const user = await Factory.model('App/Models/User').create()
 
   const response = await client
-    .delete('/api/places/100')
+    .put('/api/places/100')
     .loginVia(user)
+    .send({ name: 'Pissarras' })
     .end()
 
   assert.equal(response.status, 404)

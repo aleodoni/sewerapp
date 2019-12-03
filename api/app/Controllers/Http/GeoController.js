@@ -26,6 +26,41 @@ class GeoController {
 
     return response.ok(geo)
   }
+
+  async store ({ request, response }) {
+    const data = request.only([
+      'accuracy',
+      'altitude',
+      'altitudeAccuracy',
+      'heading',
+      'latitude',
+      'longitude',
+      'speed'
+    ])
+
+    const geo = await Geo.create(data)
+
+    return response.ok(geo)
+  }
+
+  async update ({ params, request, response }) {
+    const data = request.only(['place_id'])
+
+    const geo = await Geo.findOrFail(params.id)
+
+    geo.merge(data)
+    await geo.save()
+
+    return response.ok(geo)
+  }
+
+  async delete ({ params, response }) {
+    const geo = await Geo.findOrFail(params.id)
+
+    await geo.delete()
+
+    return response.ok({})
+  }
 }
 
 module.exports = GeoController

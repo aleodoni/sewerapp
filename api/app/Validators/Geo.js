@@ -3,7 +3,13 @@
 class Geo {
   get rules () {
     return {
-      // validation rules
+      accuracy: 'required',
+      altitude: 'required',
+      altitudeAccuracy: 'required',
+      heading: 'required',
+      latitude: 'required',
+      longitude: 'required',
+      speed: 'required'
     }
   }
 }
