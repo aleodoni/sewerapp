@@ -12,6 +12,12 @@ class GeosSchema extends Schema {
         .unsigned()
         .references('id')
         .inTable('places')
+      table
+        .integer('user_id')
+        .unsigned()
+        .references('id')
+        .inTable('users')
+        .notNullable()
       table.integer('accuracy').notNullable()
       table.integer('altitude').notNullable()
       table.integer('altitudeAccuracy').notNullable()

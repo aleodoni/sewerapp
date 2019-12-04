@@ -5,15 +5,15 @@ const User = use('App/Models/User')
 
 class SessionController {
   async store ({ request, response, auth }) {
-    const { username, password } = request.all()
+    const { email, password } = request.all()
 
     const user = await User.query()
-      .where('username', username)
-      .select('id', 'username', 'email')
+      .where('email', email)
+      .select('id', 'name', 'email')
       .first()
 
     try {
-      const token = await auth.attempt(username, password)
+      const token = await auth.attempt(email, password)
       return response.ok({ user, token })
     } catch (err) {
       throw new AuthenticateException()

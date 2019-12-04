@@ -51,7 +51,7 @@ export function* signUp({ payload }) {
 
     yield put(signInSuccess(token, user));
   } catch (error) {
-    Alert.alert('Falha no cadastro', 'Verifique seus dados!');
+    Alert.alert('Falha no cadastro', error.response.data.error);
 
     yield put(signFailure());
   }

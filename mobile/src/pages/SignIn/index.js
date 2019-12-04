@@ -3,12 +3,11 @@ import { Image } from 'react-native';
 
 import PropTypes from 'prop-types';
 
+import { useDispatch, useSelector } from 'react-redux';
 import logo from '~/assets/logo.png';
 
-/* import { useDispatch,  useSelector} from 'react-redux'; */
-
 import Background from '~/components/Background';
-// import {signInRequest} from '~/store/modules/auth/actions';
+import { signInRequest } from '~/store/modules/auth/actions';
 
 import {
   Container,
@@ -20,15 +19,17 @@ import {
 } from './styles';
 
 export default function SignIn({ navigation }) {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const passwordRef = useRef();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  // const loading = useSelector(state => state.auth.loading);
+  const loading = useSelector(state => state.auth.loading);
 
-  function handleSubmit() {}
+  function handleSubmit() {
+    dispatch(signInRequest(email, password));
+  }
 
   return (
     <Background>
@@ -58,7 +59,7 @@ export default function SignIn({ navigation }) {
             onChangeText={setPassword}
           />
 
-          <SubmitButton /* loading={loading} */ onPress={handleSubmit}>
+          <SubmitButton loading={loading} onPress={handleSubmit}>
             Entrar
           </SubmitButton>
         </Form>

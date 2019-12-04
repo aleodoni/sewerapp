@@ -8,16 +8,7 @@ class RegisterService {
     this.Config = Config
   }
 
-  async checkExists (username, email) {
-    const searchUsername = await User
-      .query()
-      .where('username', username)
-      .first()
-
-    if (searchUsername) {
-      throw new UsernameOrPasswordException()
-    }
-
+  async checkExists (email) {
     const searchEmail = await User
       .query()
       .where('email', email)
@@ -28,12 +19,12 @@ class RegisterService {
     }
   }
 
-  async register (username, email, password) {
-    const user = await User.create({ username, email, password })
+  async register (name, email, password) {
+    const user = await User.create({ name, email, password })
 
     const userData = {
       id: user.id,
-      name: user.username,
+      name: user.name,
       email: user.email
     }
 

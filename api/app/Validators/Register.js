@@ -3,7 +3,7 @@
 class Register {
   get rules () {
     return {
-      username: 'required',
+      name: 'required',
       email: 'required',
       password: 'required'
     }
