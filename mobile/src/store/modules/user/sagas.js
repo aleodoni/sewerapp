@@ -13,6 +13,7 @@ export function* updateProfile({ payload }) {
       email,
       ...(rest.oldPassword ? rest : {}),
     };
+
     const response = yield call(api.put, 'users', profile);
 
     Alert.alert('Sucesso', 'Perfil atualizado com sucesso.');

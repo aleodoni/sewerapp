@@ -1,22 +1,34 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { withNavigationFocus } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+
+import api from '~/services/api';
 
 import Background from '~/components/Background';
 
 import { Container } from './styles';
 
-function DashBoard({ isFocused }) {
+function DashBoard() {
+  const [geos, setGeos] = useState([]);
+
   useEffect(() => {
-    if (isFocused) {
-      // loadMeetups();
+    async function loadGeos() {
+      const response = await api.get('geos');
+      console.tron.log(response.data);
+
+      setGeos(response.data);
     }
-  }, [isFocused]);
+
+    loadGeos();
+  }, []);
 
   return (
     <Background>
       <Container />
+      {geos.map(geo => (
+        <p>{geo.latitude}</p>
+      ))}
     </Background>
   );
 }
@@ -32,10 +44,6 @@ DashboardIcon.propTypes = {
 DashBoard.navigationOptions = {
   tabBarLabel: 'Meus Pontos',
   tabBarIcon: DashboardIcon,
-};
-
-DashBoard.propTypes = {
-  isFocused: PropTypes.bool.isRequired,
 };
 
 export default withNavigationFocus(DashBoard);

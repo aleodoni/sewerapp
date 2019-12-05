@@ -7,7 +7,7 @@ Route.group(() => {
 
   Route.post('sessions', 'SessionController.store').validator('SessionStore')
 
-  Route.post('users', 'UserController.store')
+  Route.put('users', 'UserController.update').middleware('auth').validator('UserUpdate')
 
   Route.get('places', 'PlaceController.index').middleware('auth')
   Route.get('places/:id', 'PlaceController.show').middleware('auth')

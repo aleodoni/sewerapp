@@ -1,12 +1,19 @@
 'use strict'
 
-const User = use('App/Models/User')
+const UpdateUserService = use('App/Services/UpdateUserService')
 
 class UserController {
-  async store ({ request }) {
-    const data = request.only(['username', 'email', 'password'])
+  async update ({ auth, request }) {
+    const userId = auth.user.id
 
-    const user = await User.create(data)
+    const data = request.only(['name', 'email', 'oldPassword', 'password', 'confirmPassword'])
+
+    const allData = {
+      userId,
+      ...data
+    }
+
+    const user = await UpdateUserService.run(allData)
 
     return user
   }

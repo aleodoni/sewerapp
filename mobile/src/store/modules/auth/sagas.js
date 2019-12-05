@@ -16,7 +16,7 @@ export function* signIn({ payload }) {
 
     const { token, user } = response.data;
 
-    api.defaults.headers.Authorization = `Bearer ${token}`;
+    api.defaults.headers.Authorization = `Bearer ${token.token}`;
 
     yield put(signInSuccess(token, user));
   } catch (err) {
