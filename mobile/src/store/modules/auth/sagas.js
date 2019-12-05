@@ -47,7 +47,7 @@ export function* signUp({ payload }) {
 
     const { token, user } = response.data;
 
-    api.defaults.headers.Authorization = `Bearer ${token}`;
+    api.defaults.headers.Authorization = `Bearer ${token.token}`;
 
     yield put(signInSuccess(token, user));
   } catch (error) {
@@ -63,7 +63,7 @@ export function setToken({ payload }) {
   const { token } = payload.auth;
 
   if (token) {
-    api.defaults.headers.Authorization = `Bearer ${token}`;
+    api.defaults.headers.Authorization = `Bearer ${token.token}`;
   }
 }
 
